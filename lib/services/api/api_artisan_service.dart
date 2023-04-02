@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import 'package:htf_artesanos/domain/user/user.dart';
 import 'package:htf_artesanos/domain/todo/todo.dart';
+import 'package:htf_artesanos/domain/cart/cart.dart';
 import 'package:htf_artesanos/utils/constants/urls.dart';
 import 'package:htf_artesanos/domain/product/product.dart';
 import 'package:htf_artesanos/services/local/isar_service.dart';
 import 'package:htf_artesanos/domain/user/create_user_dto.dart';
+import 'package:htf_artesanos/domain/product/product_cart_dto.dart';
 import 'package:htf_artesanos/domain/product/create_product_dto.dart';
 import 'package:htf_artesanos/utils/network/interceptors/interceptors.dart';
 
@@ -72,7 +76,6 @@ class ApiArtisanService {
 
   /// Artisan endpoints
   Future<List<Product>> getArtisanProducts() async {
-    //handcraft
     var response = await client.get('$apiUrlArtisanProducts/smartphones');
 
     final List<Product> products = [];
@@ -122,5 +125,53 @@ class ApiArtisanService {
 
   Future<void> deleteArtisanTodo(int todoId) async {
     await client.delete('$apiUrlArtisanTodo/$todoId');
+  }
+
+  /// Tourist endpoints
+  Future<Product> getProductDetails(int productId) async {
+    var response = await client.get('$apiUrlProductDetails/$productId');
+
+    return Product.fromJson(response.data);
+  }
+
+  Future<dynamic> addProductsToCart(
+    int userId,
+    List<ProductCartDTO> products,
+  ) async {
+    var response = await client.post(
+      apiUrlAddProductsToCart,
+      data: {
+        'userId': userId,
+        'products': jsonEncode(products),
+      },
+    );
+
+    var prod = Product.fromJson(response.data);
+
+    return prod;
+  }
+
+  Future<dynamic> getCart(int userId) async {
+    var response = await client.get('$apiUrlGetCart/$userId');
+
+    return Cart.fromJson(response.data);
+  }
+
+  Future<void> addTodo(
+    int userId,
+    String todoDescription,
+  ) async {
+    await client.post(
+      apiUrlAddProductsToCart,
+      data: {
+        'userId': userId,
+        'todo': todoDescription,
+        'completed': false,
+      },
+    );
+  }
+
+  Future<void> removeCart(int cartId) async {
+    await client.delete('$apiUrlRemoveCart/$cartId');
   }
 }

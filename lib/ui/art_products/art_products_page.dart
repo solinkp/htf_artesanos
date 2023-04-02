@@ -42,19 +42,23 @@ class _ArtProductsPageState extends State<ArtProductsPage> {
               size: SpinnerSize.normal,
             ),
           )
-        : GridView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: _products.length,
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 10.h,
-              crossAxisSpacing: 10.w,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return ProductItem(product: _products[index]);
-            },
-          );
+        : _products.isNotEmpty
+            ? GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: _products.length,
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10.w,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return ProductItem(product: _products[index]);
+                },
+              )
+            : const Center(
+                child: Text('No cuentas con productos'),
+              );
   }
 }

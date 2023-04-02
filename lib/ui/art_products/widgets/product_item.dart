@@ -20,6 +20,9 @@ class ProductItem extends StatelessWidget {
         onTap: () {},
         child: Material(
           elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           color: customGrey,
           child: Column(
             children: [

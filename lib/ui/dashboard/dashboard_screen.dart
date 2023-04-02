@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:htf_artesanos/ui/dashboard/new_product_form.dart';
 
 import 'package:htf_artesanos/ui/layouts/base_layout.dart';
+import 'package:htf_artesanos/utils/constants/constants.dart';
+import 'package:htf_artesanos/ui/dashboard/new_product_form.dart';
 import 'package:htf_artesanos/ui/art_pending/art_pending_page.dart';
 import 'package:htf_artesanos/ui/art_products/art_products_page.dart';
-import 'package:htf_artesanos/utils/constants/constants.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
