@@ -1,3 +1,4 @@
+import 'package:htf_artesanos/domain/user/user.dart';
 import 'package:isar/isar.dart';
 
 import 'package:htf_artesanos/domain/user/isar_user.dart';
@@ -16,13 +17,14 @@ class IsarService {
   }
 
   Future<void> openIsarSchemas() async {
-    Isar.open([IsarUserSchema], name: 'isarArtisan');
+    await Isar.open([IsarUserSchema], name: 'isarArtisan');
   }
 
   /// get ops
   ///
 
   Future<IsarUser?> getIsarUser() async {
+    await Future.delayed(const Duration(milliseconds: 300));
     Isar isar = Isar.getInstance('isarArtisan')!;
     return (await isar.isarUsers.where().findFirst());
   }
@@ -30,7 +32,15 @@ class IsarService {
   /// save ops
   ///
 
-  Future<void> saveIsarUser(IsarUser isarUser) async {
+  Future<void> saveIsarUser(User user, int userType) async {
+    var isarUser = IsarUser()
+      ..id = user.id
+      ..userType = userType
+      ..username = user.username
+      ..firstName = user.firstName
+      ..lastName = user.lastName
+      ..picture = user.picture
+      ..token = user.token;
     Isar? isar = Isar.getInstance('isarArtisan');
     if (isar != null) {
       await isar.writeTxn(() async {

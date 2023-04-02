@@ -8,7 +8,9 @@ import 'package:htf_artesanos/services/local/isar_service.dart';
 class AuthInterceptor extends Interceptor {
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final isarUser = await IsarService.instance.getIsarUser();
 
     options.headers['Authorization'] =

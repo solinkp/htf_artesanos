@@ -6,6 +6,7 @@ part 'isar_user.g.dart';
 class IsarUser {
   Id isarId = Isar.autoIncrement;
   late int id;
+  late int userType;
   late String username;
   late String firstName;
   late String lastName;

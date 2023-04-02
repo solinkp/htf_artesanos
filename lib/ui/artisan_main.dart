@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Router;
 
 import 'package:htf_artesanos/ui/router/router.gr.dart';
+import 'package:htf_artesanos/utils/constants/global.dart';
 import 'package:htf_artesanos/utils/constants/constants.dart';
 import 'package:htf_artesanos/ui/router/guards/auth_guard.dart';
 
@@ -15,10 +16,14 @@ class ArtisanMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: snackbarKey,
       themeMode: ThemeMode.light,
       theme: ThemeData(
-        fontFamily: 'Browa',
-        scaffoldBackgroundColor: customLightGrey,
+        colorScheme: const ColorScheme.light().copyWith(
+          primary: customBrown,
+          secondary: customBrown,
+        ),
+        scaffoldBackgroundColor: customGrey,
       ),
       builder: (BuildContext context, Widget? child) {
         final MediaQueryData media = MediaQuery.of(context);

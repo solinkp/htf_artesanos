@@ -42,8 +42,13 @@ const IsarUserSchema = CollectionSchema(
       name: r'token',
       type: IsarType.string,
     ),
-    r'username': PropertySchema(
+    r'userType': PropertySchema(
       id: 5,
+      name: r'userType',
+      type: IsarType.long,
+    ),
+    r'username': PropertySchema(
+      id: 6,
       name: r'username',
       type: IsarType.string,
     )
@@ -87,7 +92,8 @@ void _isarUserSerialize(
   writer.writeString(offsets[2], object.lastName);
   writer.writeString(offsets[3], object.picture);
   writer.writeString(offsets[4], object.token);
-  writer.writeString(offsets[5], object.username);
+  writer.writeLong(offsets[5], object.userType);
+  writer.writeString(offsets[6], object.username);
 }
 
 IsarUser _isarUserDeserialize(
@@ -103,7 +109,8 @@ IsarUser _isarUserDeserialize(
   object.lastName = reader.readString(offsets[2]);
   object.picture = reader.readString(offsets[3]);
   object.token = reader.readString(offsets[4]);
-  object.username = reader.readString(offsets[5]);
+  object.userType = reader.readLong(offsets[5]);
+  object.username = reader.readString(offsets[6]);
   return object;
 }
 
@@ -125,6 +132,8 @@ P _isarUserDeserializeProp<P>(
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
+      return (reader.readLong(offset)) as P;
+    case 6:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -848,6 +857,59 @@ extension IsarUserQueryFilter
     });
   }
 
+  QueryBuilder<IsarUser, IsarUser, QAfterFilterCondition> userTypeEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'userType',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<IsarUser, IsarUser, QAfterFilterCondition> userTypeGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'userType',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<IsarUser, IsarUser, QAfterFilterCondition> userTypeLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'userType',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<IsarUser, IsarUser, QAfterFilterCondition> userTypeBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'userType',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<IsarUser, IsarUser, QAfterFilterCondition> usernameEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1046,6 +1108,18 @@ extension IsarUserQuerySortBy on QueryBuilder<IsarUser, IsarUser, QSortBy> {
     });
   }
 
+  QueryBuilder<IsarUser, IsarUser, QAfterSortBy> sortByUserType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userType', Sort.asc);
+    });
+  }
+
+  QueryBuilder<IsarUser, IsarUser, QAfterSortBy> sortByUserTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userType', Sort.desc);
+    });
+  }
+
   QueryBuilder<IsarUser, IsarUser, QAfterSortBy> sortByUsername() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'username', Sort.asc);
@@ -1133,6 +1207,18 @@ extension IsarUserQuerySortThenBy
     });
   }
 
+  QueryBuilder<IsarUser, IsarUser, QAfterSortBy> thenByUserType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userType', Sort.asc);
+    });
+  }
+
+  QueryBuilder<IsarUser, IsarUser, QAfterSortBy> thenByUserTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userType', Sort.desc);
+    });
+  }
+
   QueryBuilder<IsarUser, IsarUser, QAfterSortBy> thenByUsername() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'username', Sort.asc);
@@ -1182,6 +1268,12 @@ extension IsarUserQueryWhereDistinct
     });
   }
 
+  QueryBuilder<IsarUser, IsarUser, QDistinct> distinctByUserType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'userType');
+    });
+  }
+
   QueryBuilder<IsarUser, IsarUser, QDistinct> distinctByUsername(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1225,6 +1317,12 @@ extension IsarUserQueryProperty
   QueryBuilder<IsarUser, String, QQueryOperations> tokenProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'token');
+    });
+  }
+
+  QueryBuilder<IsarUser, int, QQueryOperations> userTypeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'userType');
     });
   }
 

@@ -13,7 +13,11 @@ class CheckIfUserIsAuthenticated extends AutoRouteGuard {
     final isarUser = await IsarService.instance.getIsarUser();
 
     if (isarUser != null && !JwtUtils.isExpired(isarUser.token)) {
-      resolver.next(true);
+      if (isarUser.userType == 0) {
+        resolver.next(true);
+      } else {
+        router.push(const TouristDashboard());
+      }
     } else {
       router.push(const Login());
     }
