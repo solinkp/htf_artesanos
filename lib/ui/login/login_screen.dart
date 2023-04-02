@@ -213,7 +213,10 @@ class _LoginScreenState extends State<LoginScreen> {
         'Por favor revisa tus credenciales e intenta de nuevo',
       );
     } else {
-      if (mounted) context.router.popAndPush(const Dashboard());
+      if (mounted) {
+        context.router.pushAndPopUntil(const Dashboard(),
+            predicate: (Route<dynamic> route) => false);
+      }
     }
   }
 }

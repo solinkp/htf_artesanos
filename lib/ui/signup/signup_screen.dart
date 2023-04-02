@@ -58,6 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      appbar: AppBar(title: const Text('Nuevo resgistro')),
       body: Center(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -68,12 +69,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 Text(
                   'Llena el formulario para registrate',
                   style: TextStyle(
-                    fontSize: 30.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: customBrown,
+                    decoration: TextDecoration.underline,
                   ),
                 ),
-                SizedBox(height: 15.h),
+                SizedBox(height: 25.h),
                 Form(
                   key: _formKey,
                   child: Column(

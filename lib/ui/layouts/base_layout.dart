@@ -7,12 +7,14 @@ class BaseLayout extends StatelessWidget {
   final Widget body;
   final Widget? bottomNav;
   final Widget? floatingButton;
+  final PreferredSizeWidget? appbar;
 
   const BaseLayout({
     super.key,
     required this.body,
     this.bottomNav,
     this.floatingButton,
+    this.appbar,
   });
 
   @override
@@ -20,6 +22,7 @@ class BaseLayout extends StatelessWidget {
     return Scaffold(
       key: const Key('baseLayoutScaffold'),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: appbar,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light.copyWith(
           statusBarColor: customBrown,
