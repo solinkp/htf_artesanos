@@ -5,10 +5,14 @@ import 'package:htf_artesanos/utils/constants/constants.dart';
 
 class BaseLayout extends StatelessWidget {
   final Widget body;
+  final Widget? bottomNav;
+  final Widget? floatingButton;
 
   const BaseLayout({
     super.key,
     required this.body,
+    this.bottomNav,
+    this.floatingButton,
   });
 
   @override
@@ -27,6 +31,8 @@ class BaseLayout extends StatelessWidget {
           child: body,
         ),
       ),
+      floatingActionButton: floatingButton,
+      bottomNavigationBar: bottomNav,
     );
   }
 }

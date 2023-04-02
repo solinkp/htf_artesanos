@@ -19,7 +19,7 @@ class CustomLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Key key = Key('spinkitLoader');
-    final Color color = this.color ?? customSageGreen;
+    final Color color = this.color ?? customBrown;
     late double size;
 
     switch (this.size) {

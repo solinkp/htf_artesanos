@@ -19,7 +19,6 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController? textController;
   final bool autofocus;
   final Function()? onEnter;
-  final bool smallUi;
 
   const CustomTextFormField({
     Key? key,
@@ -38,7 +37,6 @@ class CustomTextFormField extends StatefulWidget {
     this.isReadOnly = false,
     this.autofocus = false,
     this.onEnter,
-    this.smallUi = false,
   }) : super(key: key);
 
   @override

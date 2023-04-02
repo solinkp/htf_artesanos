@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 
 import 'package:htf_artesanos/domain/user/user.dart';
+import 'package:htf_artesanos/domain/todo/todo.dart';
 import 'package:htf_artesanos/utils/constants/urls.dart';
+import 'package:htf_artesanos/domain/product/product.dart';
 import 'package:htf_artesanos/services/local/isar_service.dart';
 import 'package:htf_artesanos/domain/user/create_user_dto.dart';
+import 'package:htf_artesanos/domain/product/create_product_dto.dart';
 import 'package:htf_artesanos/utils/network/interceptors/interceptors.dart';
 
 class ApiArtisanService {
@@ -68,9 +71,56 @@ class ApiArtisanService {
   }
 
   /// Artisan endpoints
-  Future<dynamic> getArtisanProducts() async {
-    var response = await client.get(apiUrlArtisanProducts);
-    print(response);
-    return response.data;
+  Future<List<Product>> getArtisanProducts() async {
+    //handcraft
+    var response = await client.get('$apiUrlArtisanProducts/smartphones');
+
+    final List<Product> products = [];
+    for (final product in response.data['products']) {
+      products.add(Product.fromJson(product));
+    }
+    return products;
+  }
+
+  Future<bool> createArtisanProduct(CreateProductDTO newProduct) async {
+    var response = await client.post(
+      apiUrlAddArtisanProduct,
+      data: {
+        'title': newProduct.title,
+        'description': newProduct.description,
+        'price': newProduct.price,
+        'discountPercentage': newProduct.discountPercentage,
+        'stock': 1,
+        'category': "handcraft"
+      },
+    );
+    return response.data != null;
+  }
+
+  Future<List<Todo>> getArtisanTodos() async {
+    var response = await client.get(apiUrlArtisanTodo);
+
+    final List<Todo> todos = [];
+    for (final todo in response.data['todos']) {
+      if (!todo['completed']) {
+        todos.add(Todo.fromJson(todo));
+      }
+    }
+    return todos;
+  }
+
+  Future<bool> updateArtisanTodo(int todoId) async {
+    var response = await client.put(
+      '$apiUrlArtisanTodo/$todoId',
+      data: {'completed': true},
+    );
+
+    await deleteArtisanTodo(todoId);
+
+    return response.data != null;
+  }
+
+  Future<void> deleteArtisanTodo(int todoId) async {
+    await client.delete('$apiUrlArtisanTodo/$todoId');
   }
 }
