@@ -1,16 +1,23 @@
-# htf_artesanos
+# Hack The Future Front End Challenge
+This is a Flutter project for the Front End challenge from Hack The Future.
 
-A new Flutter project.
+## Author
+* Name: Ricardo Solin Sanchez Salgado
+* Email: rsanchezsk@gmail.com
 
-## Getting Started
+## Technologies Used
+* Flutter SDK 3.7.9
+* Isar DB 3.0.5
+* Dio 4.0.6
 
-This project is a starting point for a Flutter application.
+## Running the app
+To run the app execute the following commands:
+* flutter pub get
+* flutter pub run build_runner build --delete-conflicting-outputs
+* flutter run
 
-A few resources to get you started if this is your first Flutter project:
+## Build
+An APK release build is included in the apk_build folder
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Considerations
+The category "smartphones" was used for the products category API call, due to none "handcraft" available in the dummyjson API
