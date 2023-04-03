@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 
 import 'package:htf_artesanos/domain/user/user.dart';
@@ -164,11 +162,11 @@ class ApiArtisanService {
   }
 
   Future<void> addTodo(
-    int userId,
     String todoDescription,
   ) async {
+    var userId = await _getUserId();
     await client.post(
-      apiUrlAddProductsToCart,
+      apiUrlAddTodo,
       data: {
         'userId': userId,
         'todo': todoDescription,
@@ -178,6 +176,10 @@ class ApiArtisanService {
   }
 
   Future<void> removeCart(int cartId) async {
-    await client.delete('$apiUrlRemoveCart/$cartId');
+    try {
+      await client.delete('$apiUrlRemoveCart/$cartId');
+    } catch (e) {
+      return;
+    }
   }
 }

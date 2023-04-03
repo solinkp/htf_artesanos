@@ -12,6 +12,30 @@ class IsarCart {
   late double total;
   late double discountedTotal;
   late List<IsarProductCart> products;
+
+  Map<String, dynamic> toMap(IsarCart isarCart) {
+    List<Map<String, dynamic>> products = [];
+    for (var product in isarCart.products) {
+      products.add({
+        'id': product.id,
+        'title': product.title,
+        'price': product.price,
+        'quantity': product.quantity,
+        'total': product.total,
+        'discountPercentage': product.discountPercentage,
+        'discountedPrice': product.discountedPrice,
+      });
+    }
+    return {
+      'id': isarCart.id,
+      'userId': isarCart.userId,
+      'totalProducts': isarCart.totalProducts,
+      'totalQuantity': isarCart.totalQuantity,
+      'total': isarCart.total,
+      'discountedTotal': isarCart.discountedTotal,
+      'products': products,
+    };
+  }
 }
 
 @embedded

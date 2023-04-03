@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:htf_artesanos/ui/router/router.gr.dart';
 
 class ShoppingCartButton extends StatelessWidget {
   const ShoppingCartButton({super.key});
@@ -11,7 +10,7 @@ class ShoppingCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        // context.router.push(ShoppingCart());
+        context.router.push(const ShoppingCart());
       },
       icon: const Icon(Icons.shopping_cart),
     );

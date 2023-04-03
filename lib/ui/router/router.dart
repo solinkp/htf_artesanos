@@ -4,6 +4,7 @@ import 'package:htf_artesanos/ui/login/login_screen.dart';
 import 'package:htf_artesanos/ui/signup/signup_screen.dart';
 import 'package:htf_artesanos/ui/router/guards/auth_guard.dart';
 import 'package:htf_artesanos/ui/dashboard/dashboard_screen.dart';
+import 'package:htf_artesanos/ui/shopping_cart/shopping_cart_screen.dart';
 import 'package:htf_artesanos/ui/product_detail/product_detail_screen.dart';
 import 'package:htf_artesanos/ui/tourist_dashboard/tourist_dashboard_screen.dart';
 
@@ -46,6 +47,13 @@ import 'package:htf_artesanos/ui/tourist_dashboard/tourist_dashboard_screen.dart
       name: 'productDetail',
       path: '/productDetail',
       page: ProductDetailScrenn,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+      durationInMilliseconds: 300,
+    ),
+    CustomRoute<void>(
+      name: 'shoppingCart',
+      path: '/shoppingCart',
+      page: ShoppingCartScreen,
       transitionsBuilder: TransitionsBuilders.fadeIn,
       durationInMilliseconds: 300,
     ),

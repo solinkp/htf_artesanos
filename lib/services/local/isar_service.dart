@@ -79,14 +79,40 @@ class IsarService {
 
     if (existingCart != null) {
       isarCart = existingCart;
-      // add new products to existing
-      isarCart.products = [...isarCart.products, ...isarProds];
+      // verify if product already exists
+      var existingElement = isarCart.products.where(
+        (element) => element.id == isarProds[0].id,
+      );
+      if (existingElement.isNotEmpty) {
+        List<IsarProductCart> editedProds = [];
+        for (var product in isarCart.products) {
+          if (product.id == isarProds[0].id) {
+            editedProds.add(
+              IsarProductCart()
+                ..id = product.id
+                ..title = product.title
+                ..price = product.price
+                ..quantity = product.quantity + isarProds[0].quantity
+                ..total = product.total + isarProds[0].total
+                ..discountPercentage = product.discountPercentage
+                ..discountedPrice =
+                    product.discountedPrice + isarProds[0].discountedPrice,
+            );
+          } else {
+            editedProds.add(product);
+          }
+          isarCart.products = [...editedProds];
+        }
+      } else {
+        // add new products to existing
+        isarCart.products = [...isarCart.products, ...isarProds];
+      }
 
       // calculate new totals
       isarCart.total = isarCart.total + cart.total;
       isarCart.discountedTotal =
           isarCart.discountedTotal + cart.discountedTotal;
-      isarCart.totalProducts = isarCart.totalProducts + cart.totalProducts;
+      isarCart.totalProducts = isarCart.products.length;
       isarCart.totalQuantity = isarCart.totalQuantity + cart.totalQuantity;
     } else {
       isarCart = IsarCart()
@@ -115,6 +141,34 @@ class IsarService {
     if (isar != null) {
       await isar.writeTxn(() async {
         await isar.isarUsers.clear();
+      });
+    }
+  }
+
+  Future<void> removeProductFromCart(int productId) async {
+    Isar? isar = Isar.getInstance('isarArtisan');
+    if (isar != null) {
+      var cart = await isar.isarCarts.where().findFirst();
+      List<IsarProductCart> products = [];
+      IsarProductCart removedProduct = IsarProductCart();
+      for (var product in cart!.products) {
+        if (product.id != productId) {
+          products.add(product);
+        } else {
+          removedProduct = product;
+        }
+      }
+
+      cart.products = [...products];
+      // calculate new totals
+      cart.total = cart.total - removedProduct.total;
+      cart.discountedTotal =
+          cart.discountedTotal - removedProduct.discountedPrice;
+      cart.totalProducts = cart.products.length;
+      cart.totalQuantity = cart.totalQuantity - removedProduct.quantity;
+
+      await isar.writeTxn(() async {
+        await isar.isarCarts.put(cart);
       });
     }
   }
