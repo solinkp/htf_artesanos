@@ -9,7 +9,7 @@ class ProductCart {
   final double price;
   final int quantity;
   final double total;
-  final double discountedPercentage;
+  final double discountPercentage;
   final double discountedPrice;
 
   ProductCart({
@@ -18,7 +18,7 @@ class ProductCart {
     required this.price,
     required this.quantity,
     required this.total,
-    required this.discountedPercentage,
+    required this.discountPercentage,
     required this.discountedPrice,
   });
 

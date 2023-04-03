@@ -79,6 +79,7 @@ class AppRouter extends _i6.RootStackRouter {
         child: _i5.ProductDetailScrenn(
           key: args.key,
           product: args.product,
+          userType: args.userType,
         ),
         transitionsBuilder: _i6.TransitionsBuilders.fadeIn,
         durationInMilliseconds: 300,
@@ -174,12 +175,14 @@ class ProductDetail extends _i6.PageRouteInfo<ProductDetailArgs> {
   ProductDetail({
     _i7.Key? key,
     required _i9.Product product,
+    required int userType,
   }) : super(
           ProductDetail.name,
           path: '/productDetail',
           args: ProductDetailArgs(
             key: key,
             product: product,
+            userType: userType,
           ),
         );
 
@@ -190,14 +193,17 @@ class ProductDetailArgs {
   const ProductDetailArgs({
     this.key,
     required this.product,
+    required this.userType,
   });
 
   final _i7.Key? key;
 
   final _i9.Product product;
 
+  final int userType;
+
   @override
   String toString() {
-    return 'ProductDetailArgs{key: $key, product: $product}';
+    return 'ProductDetailArgs{key: $key, product: $product, userType: $userType}';
   }
 }

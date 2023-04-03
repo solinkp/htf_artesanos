@@ -12,7 +12,7 @@ ProductCart _$ProductCartFromJson(Map<String, dynamic> json) => ProductCart(
       price: (json['price'] as num).toDouble(),
       quantity: json['quantity'] as int,
       total: (json['total'] as num).toDouble(),
-      discountedPercentage: (json['discountedPercentage'] as num).toDouble(),
+      discountPercentage: (json['discountPercentage'] as num).toDouble(),
       discountedPrice: (json['discountedPrice'] as num).toDouble(),
     );
 
@@ -23,6 +23,6 @@ Map<String, dynamic> _$ProductCartToJson(ProductCart instance) =>
       'price': instance.price,
       'quantity': instance.quantity,
       'total': instance.total,
-      'discountedPercentage': instance.discountedPercentage,
+      'discountPercentage': instance.discountPercentage,
       'discountedPrice': instance.discountedPrice,
     };

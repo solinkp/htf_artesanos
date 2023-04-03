@@ -4,13 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:htf_artesanos/domain/product/product.dart';
 import 'package:htf_artesanos/ui/layouts/base_layout.dart';
+import 'package:htf_artesanos/ui/widgets/preorder_button.dart';
 import 'package:htf_artesanos/utils/constants/global.dart';
 import 'package:htf_artesanos/utils/constants/constants.dart';
 
 class ProductDetailScrenn extends StatelessWidget {
   final Product product;
+  final int userType;
 
-  const ProductDetailScrenn({super.key, required this.product});
+  const ProductDetailScrenn({
+    super.key,
+    required this.product,
+    required this.userType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +73,16 @@ class ProductDetailScrenn extends StatelessWidget {
               ),
             ),
           ),
+          if (userType == 1)
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 5.h),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: PreorderButton(productId: product.id, minSize: false),
+                ),
+              ),
+            ),
         ],
       ),
     );

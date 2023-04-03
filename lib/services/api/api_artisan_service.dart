@@ -33,6 +33,11 @@ class ApiArtisanService {
     return _dioClient!;
   }
 
+  Future<int> _getUserId() async {
+    var user = await IsarService.instance.getIsarUser();
+    return user!.id;
+  }
+
   /// Auth endpoints
   Future<bool> login({
     required String username,
@@ -134,27 +139,28 @@ class ApiArtisanService {
     return Product.fromJson(response.data);
   }
 
-  Future<dynamic> addProductsToCart(
-    int userId,
-    List<ProductCartDTO> products,
-  ) async {
+  Future<Cart> addProductToCart(ProductCartDTO product) async {
+    var userId = await _getUserId();
     var response = await client.post(
       apiUrlAddProductsToCart,
       data: {
         'userId': userId,
-        'products': jsonEncode(products),
+        'products': [
+          {'id': product.id, 'quantity': product.quantity}
+        ],
       },
     );
-
-    var prod = Product.fromJson(response.data);
-
-    return prod;
+    return Cart.fromJson(response.data);
   }
 
-  Future<dynamic> getCart(int userId) async {
+  Future<Cart?> getCart() async {
+    var userId = await _getUserId();
     var response = await client.get('$apiUrlGetCart/$userId');
 
-    return Cart.fromJson(response.data);
+    if (response.data['carts'].isEmpty) {
+      return null;
+    }
+    return Cart.fromJson(response.data['carts'][0]);
   }
 
   Future<void> addTodo(
